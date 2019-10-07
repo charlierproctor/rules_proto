@@ -317,17 +317,18 @@ def proto_compile_aspect_impl(target, ctx):
         for arg in args:
             print("ARG:", arg)
 
-    ctx.actions.run_shell(
-        mnemonic = mnemonic,  # SAME
-        command = command,  # SAME
+    if outputs:
+        ctx.actions.run_shell(
+            mnemonic = mnemonic,  # SAME
+            command = command,  # SAME
 
-        # This is different!
-        inputs = inputs,
-        tools = tools,
+            # This is different!
+            inputs = inputs,
+            tools = tools,
 
-        # outputs = outputs + [descriptor] + ctx.outputs.outputs, # compile.bzl
-        outputs = outputs,
-    )
+            # outputs = outputs + [descriptor] + ctx.outputs.outputs, # compile.bzl
+            outputs = outputs,
+        )
 
     #
     # Gather transitive outputs
